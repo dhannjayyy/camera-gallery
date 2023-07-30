@@ -1,0 +1,143 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin:0;
+    padding:0;
+}
+
+.video-container{
+    height:100vh;
+    width:100vw;
+    background-color: black;
+}
+
+video{
+    height:100%;
+    width:100%
+}
+
+.actions-button-container{
+    height:12rem;
+    width:5rem;
+    position: absolute;
+    top: calc((100vh - 12rem)/2);
+    right:5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.actions-button-container > div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border:5px solid white;
+    height:5rem;
+    width:5rem;
+    border-radius:100%;
+}
+
+.action-button{
+    border:none;
+    height:3rem;
+    width:3rem;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+.record-btn{
+    background-color: red;
+}
+
+.record-animation{
+    animation-name:record-btn-animation;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+.capture-btn{
+    background-color: white;
+}
+
+.capture-animation{
+    animation-name:capture-btn-animation;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+}
+
+.timer-container{
+    position: absolute;
+    color:red;
+    font-size: 2rem;
+    left:5rem;
+    height:2rem;
+    bottom: 10rem;
+    display: none;
+}
+
+.filter-container{
+    width:5rem;
+    height:16rem;
+    background-color: transparent;
+    position: absolute;
+    top:calc((100vh - 16rem)/2);
+    left:6rem;
+    z-index:5;
+}
+
+.filter{
+    height:4rem;
+    background-image: url("https://picsum.photos/seed/picsum/200/300");
+    background-size: cover;
+    cursor: pointer;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode: color-burn;
+    margin-top:5px;
+    cursor: pointer;
+}
+
+.orange{
+    background-color: rgba(255, 166, 0, 0.2);
+}
+
+.brown{
+    background-color: rgba(165, 42, 42, 0.2);
+}
+
+.pink{
+    background-color: rgba(255, 192, 203, 0.2);
+}
+
+.overlay{
+    height: 100vh;
+    width:100vw;
+    background-color: transparent;
+    position:absolute;
+}
+
+@keyframes record-btn-animation{
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+@keyframes capture-btn-animation{
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
