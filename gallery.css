@@ -25,6 +25,7 @@ body{
     display: flex;
     flex-direction: column;
     border:5px solid white;
+    margin:2rem;
 }
 
 .media-container > img, .media-container > video{
@@ -52,7 +53,7 @@ body{
 }
 
 .back-button{
-    position: absolute;
+    position: fixed;
     bottom:3rem;
     right:4rem;
     border:2px solid black;

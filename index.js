@@ -9,7 +9,7 @@ let recorder;
 let streamChunks = [];
 let counter = 0;
 let timerId;
-let filterColor;
+let filterColor = "transparent";
 
 // hardware permission and recorder instance creator
 (async function (constraints) {
@@ -24,11 +24,25 @@ let filterColor;
 
     recorder.addEventListener("stop", function () {
       const blob = new Blob(streamChunks, { type: "video/mp4" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "camera gallery";
-      a.click();
+      if (!db) return;
+      const videoToStore = {
+        video : blob,
+      }
+      const addVideoTransaction = db.transaction("video","readwrite")
+      const objectStore = addVideoTransaction.objectStore("video")
+      const request = objectStore.add(videoToStore)
+      request.onsuccess = ((e)=>{
+        let addedVideoId = e.target.result
+        let addedVideo = objectStore.get(addedVideoId);
+        addedVideo.onsuccess = (()=>{
+          addedVideo = addedVideo.result;
+          const customId = `vid-${e.target.result}`;
+          const putRequest = objectStore.put({addedVideo,customId},customId);
+          putRequest.onsuccess = (()=>{
+            objectStore.delete(addedVideoId)
+          })
+        })
+      })
       streamChunks = [];
     });
   } catch (error) {
@@ -100,12 +114,27 @@ captureBtn.addEventListener("click", () => {
   ctx.fillRect(0,0,canvas.width,canvas.height);
 
   canvas.toBlob((blobData)=>{
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blobData);
-    a.download = "image";
-    a.click();
+    const imageToStore = {
+      image : blobData,
+    }
+    const addimageTransaction = db.transaction("image","readwrite")
+    const objectStore = addimageTransaction.objectStore("image")
+    const request = objectStore.add(imageToStore)
+    request.onsuccess = ((e)=>{
+      let addedImageId = e.target.result
+      let addedImage = objectStore.get(addedImageId);
+      addedImage.onsuccess = (()=>{
+        addedImage = addedImage.result;
+        const customId = `img-${e.target.result}`;
+        const putRequest = objectStore.put({addedImage,customId},customId);
+        putRequest.onsuccess = (()=>{
+          objectStore.delete(addedImageId)
+        })
+      })
+    })
   })
-  setTimeout(() => {
+
+setTimeout(() => {
     captureBtn.classList.remove("capture-animation");
   }, 500);
 });
