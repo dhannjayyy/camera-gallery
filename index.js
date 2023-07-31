@@ -89,6 +89,7 @@ filters.addEventListener("click", (e) => {
 });
 
 captureBtn.addEventListener("click", () => {
+  captureBtn.classList.add("capture-animation");
   const canvas = document.createElement("canvas");
   canvas.height = videoRef.videoHeight;
   canvas.width = videoRef.videoWidth;
@@ -104,4 +105,7 @@ captureBtn.addEventListener("click", () => {
     a.download = "image";
     a.click();
   })
+  setTimeout(() => {
+    captureBtn.classList.remove("capture-animation");
+  }, 500);
 });

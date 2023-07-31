@@ -64,8 +64,7 @@ video{
 
 .capture-animation{
     animation-name:capture-btn-animation;
-    animation-duration: 1s;
-    animation-timing-function: ease-in-out;
+    animation-duration: 0.1s;
 }
 
 .timer-container{
@@ -117,6 +116,23 @@ video{
     width:100vw;
     background-color: transparent;
     position:absolute;
+}
+
+.gallery{
+    color: white;
+    position: absolute;
+    z-index: 20;
+    right:5rem;
+    bottom:5rem;
+    font-size: 2.5rem;
+    cursor: pointer;
+}
+
+.gallery .material-icons{
+    font-size: 2.5rem;
+    border: 2px solid white;
+    padding:1rem;
+    border-radius: 50%;
 }
 
 @keyframes record-btn-animation{
